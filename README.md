@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=wave&color=1D4ED8&height=150&section=header&text=Pakistan%20Law%20Helper&fontSize=50&fontAlignY=35&fontColor=ffffff" alt="Top Wave" />
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=1D4ED8&height=120&section=header&text=Pakistan%20Law%20Helper&fontSize=50&fontColor=ffffff" alt="Top Banner" />
   
   <br>
   
@@ -233,5 +233,5 @@ Retrieves legal context from the vector database and generates a verified answer
 </div>
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=wave&color=1D4ED8&height=120&section=footer" alt="Bottom Wave" />
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=1D4ED8&height=60&section=footer" alt="Bottom Banner" />
 </div>
