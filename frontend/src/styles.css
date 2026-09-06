@@ -1,0 +1,398 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --primary-navy: #0B1327;
+  --primary-blue: #1D4ED8;
+  --primary-blue-hover: #1E40AF;
+  --secondary-blue: #3B82F6;
+  --bg-light: #F8FAFC;
+  --bg-white: #FFFFFF;
+  
+  --text-dark: #0F172A;
+  --text-main: #334155;
+  --text-muted: #64748B;
+  
+  --border-color: #E2E8F0;
+  
+  --success-green: #16A34A;
+  --warning-yellow: #F59E0B;
+  --danger-red: #DC2626;
+  --badge-green-bg: #DCFCE7;
+  --badge-green-text: #166534;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* App Layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 60px;
+}
+
+/* -------------------------------------
+   Global UI Components
+-------------------------------------- */
+.hero-background-section {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 20px 140px; /* Default bottom padding for card overlap */
+  background-image: url('./assets/images/pakistan-law.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-background-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Ensure high contrast dark navy overlay but keep image visible */
+  background-color: rgba(11, 19, 39, 0.8); 
+  z-index: 0;
+}
+
+.card-base {
+  background: var(--bg-white);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+.btn-primary {
+  background-color: var(--secondary-blue);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-blue-hover);
+  box-shadow: 0 6px 8px -1px rgba(59, 130, 246, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px -1px rgba(59, 130, 246, 0.4);
+}
+
+.btn-primary:disabled {
+  background-color: #94A3B8;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* -------------------------------------
+   Header (Dark Navy Style)
+-------------------------------------- */
+.app-header-navy {
+  background-color: var(--primary-navy);
+  color: white;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.header-brand-navy {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand-icon-navy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+}
+
+.header-logo-img-new {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.brand-text-navy h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.text-white { color: white; }
+.text-blue { color: var(--secondary-blue); }
+
+.brand-text-navy p {
+  font-size: 0.8rem;
+  color: #94A3B8;
+  margin: 0;
+}
+
+.header-actions-navy {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  transition: all 0.2s;
+}
+
+.nav-btn:hover {
+  color: white;
+  background-color: rgba(255,255,255,0.1);
+}
+
+.active-nav-btn {
+  background-color: var(--primary-blue);
+  color: white;
+}
+
+.active-nav-btn:hover {
+  background-color: var(--primary-blue-hover);
+}
+
+.header-lang-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(255,255,255,0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.header-lang-selector img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.header-lang-selector select {
+  background: transparent;
+  border: none;
+  color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.header-lang-selector select option {
+  color: var(--text-dark);
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.icon-btn:hover {
+  color: white;
+}
+
+.avatar-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--secondary-blue);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-left: 8px;
+}
+
+/* -------------------------------------
+   Footer (Dark Navy Style)
+-------------------------------------- */
+.app-footer-navy {
+  background-color: var(--primary-navy);
+  color: white;
+  padding: 60px 40px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  /* Adding a subtle gradient to mimic the mountain silhouette lighting */
+  background-image: linear-gradient(to bottom, var(--primary-navy), #060A16);
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-content-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.footer-left h2 {
+  font-family: 'Merriweather', serif;
+  font-style: italic;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #E2E8F0;
+  margin-bottom: 8px;
+}
+
+.footer-left p {
+  color: #94A3B8;
+  font-size: 0.95rem;
+}
+
+.footer-right {
+  display: flex;
+  gap: 16px;
+}
+
+.footer-btn-outline {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.footer-btn-outline:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.footer-btn-filled {
+  background: var(--secondary-blue);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.footer-btn-filled:hover {
+  background: var(--primary-blue-hover);
+}
+
+.footer-content-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 30px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-content-bottom p {
+  color: #64748B;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .app-header-navy {
+    padding: 16px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .header-actions-navy {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .nav-btn span {
+    display: none;
+  }
+  .footer-content-top {
+    flex-direction: column;
+    gap: 24px;
+    text-align: center;
+    align-items: center;
+  }
+}
