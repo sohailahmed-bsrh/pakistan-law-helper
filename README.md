@@ -1,120 +1,162 @@
+# Pakistan Law Helper - Statutory RAG Intelligence Platform
+
+<p align="center">
+  <a href="https://sohail.devsil.com"><strong>Portfolio</strong></a> | 
+  <a href="https://github.com/sohailahmed-bsrh"><strong>GitHub Profile</strong></a> | 
+  <a href="https://github.com/sohailahmed-bsrh/pakistan-law-helper"><strong>Source Repository</strong></a>
+</p>
+
+---
+
+## Executive Summary & Problem Statement
+
+Legal research in the Pakistani jurisprudence system is hindered by fragmented statutory archives, scattered provincial amendments, and dense statutory language across decades of legislative gazettes. Legal practitioners, law students, and citizens face significant overhead when cross-referencing procedural codes against relevant precedent and constitutional provisions.
+
+Pakistan Law Helper solves this challenge through a specialized Retrieval-Augmented Generation (RAG) platform. By indexing federal statutes, provincial amendments, and procedural codes, the platform retrieves statutory sections with citation accuracy, providing structured legal analysis while eliminating hallucinations.
+
 <div align="center">
-
-<h1>Pakistan Law Legal Intelligence Assistant</h1>
-
-<img src="https://readme-typing-svg.herokuapp.com?font=Inter&weight=800&size=22&duration=3000&pause=1000&color=6366F1&center=true&vCenter=true&width=800&lines=Legal+Research+Assistant;Pakistan+Penal+and+Civil+Codes;Retrieval-Augmented+Generation;LangChain+%2B+Vector+Search" alt="Typing Header" />
-
-<p><strong>Specialized Retrieval-Augmented Generation Legal Assistant Covering Pakistan Penal and Civil Statutes</strong></p>
-
-<p>
-  <a href="https://skillicons.dev"><img src="https://skillicons.dev/icons?i=python,fastapi,react,js,github&theme=dark" alt="Skills" /></a>
-</p>
-
-<p>
-  <a href="#overview">Overview</a> &bull;
-  <a href="#system-architecture">Architecture</a> &bull;
-  <a href="#visual-showcase-gallery">Visual Gallery</a> &bull;
-  <a href="#core-capabilities">Capabilities</a> &bull;
-  <a href="#installation--setup">Installation</a> &bull;
-  <a href="#author--contact-information">Author</a>
-</p>
-
+  <img src="frontend/src/assets/images/pakistan-law.jpeg" width="650" alt="Pakistan Law Helper Banner"/>
+  <p><em>Statutory intelligence architecture for federal and provincial legal research.</em></p>
 </div>
 
 ---
-## Overview
 
-Pakistan Law Helper is an artificial intelligence research tool designed to assist legal practitioners, researchers, and citizens with statutory queries regarding Pakistan penal, civil, and constitutional law. Utilizing Retrieval-Augmented Generation (RAG) and dense vector embeddings, the system retrieves relevant statutory sections, procedural rules, and legal precedents.
+## Real-World Industry Applications
+
+- **Legal Practice Research**: Litigators query procedural requirements under the Code of Criminal Procedure (CrPC) and Civil Procedure Code (CPC) with immediate statutory section references.
+- **Corporate Compliance**: Corporate legal teams cross-examine federal tax, labor, and commercial laws with provincial-level variances across Punjab, Sindh, KPK, and Balochistan.
+- **Academic Legal Studies**: Law students and researchers examine constitutional provisions, statutory cross-references, and procedural frameworks in a single interface.
+- **Citizen Legal Access**: Provides accessible, structured explanations of statutory rights and regulatory requirements in plain language with verified legal citations.
 
 ---
 
-## Visual Showcase Gallery
+## Technical Architecture & Engineering Walkthrough
 
-<table width="100%" align="center">
+The platform operates across an end-to-end statutory ingestion, vectorization, and grounded generation lifecycle:
+
+```
+[Statutory Acts & Codes] 
+        │
+        ▼
+[Document Parsing & Semantic Section Chunking]
+        │
+        ▼
+[High-Dimensional Vector Embeddings (Sentence Transformers)]
+        │
+        ▼
+[Vector Database Storage (FAISS / Chroma Vector Index)]
+        │
+   [User Query] ──► [Jurisdiction Filtering] ──► [Top-K Semantic Retrieval]
+                                                          │
+                                                          ▼
+                                            [LLM Context Injection & Citation Grounding]
+                                                          │
+                                                          ▼
+                                            [FastAPI REST Response with Section References]
+```
+
+### Step 1: Document Processing and Chunking
+Legal texts possess strict hierarchical structures (Part, Chapter, Section, Sub-section, Proviso). Standard fixed-token window chunking breaks legal dependencies. The ingestion pipeline (`backend/ingest_laws.py`) employs statutory boundary chunking, preserving section headers, numbers, and provisos in the same chunk metadata.
+
+### Step 2: Vector Embedding & Storage
+Chunks are encoded into vector space using semantic legal embeddings, mapping legal terminology to relevant statutory provisions. High-dimensional vectors are stored with jurisdiction tags (`Federal`, `Punjab`, `Sindh`, `Khyber Pakhtunkhwa`, `Balochistan`, `Islamabad Capital Territory`, `Azad Jammu & Kashmir`, `Gilgit-Baltistan`).
+
+### Step 3: Jurisdictional Filtering & Hybrid Retrieval
+Incoming user queries pass through an entity and jurisdiction classifier. The retrieval engine filters vector space by target jurisdiction before executing semantic similarity search, preventing cross-jurisdiction statutory confusion.
+
+### Step 4: Grounded Legal Generation
+The top retrieved statutory chunks are formatted with explicit citation requirements (`backend/app/rag.py` and `backend/app/answer.py`). The generation engine constructs responses citing specific section numbers, act names, and applicable provisions without speculative legal advice.
+
+### Step 5: Web Interface & Jurisdiction Selector
+The React/Vite front-end provides an intuitive legal workspace, featuring provincial seal iconography, query history, citation display cards, and instant query execution.
+
+---
+
+## User Interface & Application Showcase
+
+<table width="100%">
   <tr>
-    <td width="50%" align="center"><b>Legal Research Query Interface</b><br><sub>Natural language legal query search with jurisdiction filtering.</sub></td>
-    <td width="50%" align="center"><b>Statutory Section Reference Viewer</b><br><sub>Contextual presentation of relevant code articles and citations.</sub></td>
+    <td width="50%" align="center">
+      <img src="frontend/src/screenshots/1.jpeg" width="460" alt="Legal Query Interface"/>
+      <p><strong>Primary Legal Assistant Dashboard</strong><br/>Jurisdiction selection and natural language query input.</p>
+    </td>
+    <td width="50%" align="center">
+      <img src="frontend/src/screenshots/2.jpg" width="460" alt="Statutory Search Results"/>
+      <p><strong>Statutory Search and Citation Retrieval</strong><br/>Structured section identification with legal citations.</p>
+    </td>
   </tr>
   <tr>
-    <td align="center"><img src="frontend/src/screenshots/1.jpeg" alt="Query Interface" width="460"/></td>
-    <td align="center"><img src="frontend/src/screenshots/2.jpg" alt="Section Viewer" width="460"/></td>
+    <td width="50%" align="center">
+      <img src="frontend/src/screenshots/3.jpg" width="460" alt="Provincial Selection"/>
+      <p><strong>Provincial Law Jurisdiction Selector</strong><br/>Granular routing across provincial and federal statutory codes.</p>
+    </td>
+    <td width="50%" align="center">
+      <img src="frontend/src/screenshots/4.jpg" width="460" alt="Section Analysis"/>
+      <p><strong>Detailed Legal Provision Breakdown</strong><br/>Contextual explanations of procedural requirements.</p>
+    </td>
   </tr>
   <tr>
-    <td width="50%" align="center"><b>Jurisdiction & Province Filter</b><br><sub>Filtering across Federal, Punjab, Sindh, KPK, and Balochistan statutes.</sub></td>
-    <td width="50%" align="center"><b>Legal Reasoning & Citation Matrix</b><br><sub>Step-by-step statutory interpretation with source code references.</sub></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="frontend/src/screenshots/3.jpg" alt="Jurisdiction Filter" width="460"/></td>
-    <td align="center"><img src="frontend/src/screenshots/4.jpg" alt="Citation Matrix" width="460"/></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="center"><b>Case Law Search & Historical Precedent Viewer</b><br><sub>Searchable repository of reported judicial rulings and statutory notes.</sub></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="center"><img src="frontend/src/screenshots/5.jpg" alt="Case Law Viewer" width="650"/></td>
+    <td colspan="2" align="center">
+      <img src="frontend/src/screenshots/5.jpg" width="650" alt="Full Analysis View"/>
+      <p><strong>Comprehensive Statutory Report View</strong><br/>Multi-section cross-referencing and statutory citations.</p>
+    </td>
   </tr>
 </table>
 
 ---
 
-## System Architecture
+## Technology Stack & Implementation Specifications
 
-```mermaid
-flowchart TD
-    A[User Legal Query / Statutory Case Question] --> B[Query Expansion & Legal Term Embedding]
-    B --> C[Dense Vector Search vs Pakistan Law Corpus]
-    C --> D[Ranked Legal Passage Retrieval]
-    D --> E[LLM RAG Synthesis & Legal Reasoning Context]
-    E --> F[Statutory Citations, Penal Codes & Legal Summary Output]
-```
-
----
-
-## Technology Stack
-
-| Layer | Technologies |
-| :--- | :--- |
-| Frontend | React, JavaScript, CSS |
-| Backend | Python, FastAPI, LangChain |
-| Vector Embeddings | ChromaDB / Sentence-Transformers |
+| Component | Technology | Version | Architectural Function |
+| :--- | :--- | :--- | :--- |
+| **Backend Framework** | FastAPI | 0.104+ | Asynchronous RESTful API for query execution and ingestion |
+| **RAG Orchestration** | LangChain / Python RAG | 0.1+ | Prompt engineering, context synthesis, and chunk retrieval |
+| **Vector Storage** | FAISS / ChromaDB | Latest | In-memory and persistent high-dimensional similarity index |
+| **Embeddings** | HuggingFace Sentence Transformers | Latest | Semantic vectorization of statutory clauses |
+| **Frontend Runtime** | React.js with Vite | 18.x | High-performance reactive client interface |
+| **Styling & UI** | Tailwind CSS | 3.x | Clean responsive typography and jurisdiction badges |
+| **Runtime Environment** | Python 3.10+ / Node 18+ | Production | Containerized and reproducible service execution |
 
 ---
 
-## Installation & Setup
+## Installation & Setup Guide
 
+### 1. Backend Service
 ```bash
-# Clone the repository
-git clone https://github.com/sohailahmed-bsrh/pakistan-law-helper.git
-cd pakistan-law-helper
-
-# Setup backend
 cd backend
+python -m venv venv
+# Windows: venv\Scriptsctivate | Unix: source venv/bin/activate
 pip install -r requirements.txt
-python main.py
-
-# Setup frontend
-cd ../frontend
-npm install
-npm start
+python ingest_laws.py
+uvicorn app.main:app --reload --port 8000
 ```
+
+### 2. Frontend Client
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
 ---
 
 ## Author & Contact Information
 
-<table width="100%" align="center">
+<table width="100%">
   <tr>
-    <td align="center" style="padding: 20px;">
+    <td width="150" align="center" valign="middle">
+      <img src="https://avatars.githubusercontent.com/u/231165170?v=4" width="120" style="border-radius: 50%;" alt="Sohail Ahmed"/>
+    </td>
+    <td>
       <h3>Sohail Ahmed</h3>
-      <p><strong>Full-Stack Artificial Intelligence & Computer Vision Engineer</strong></p>
+      <p><strong>Senior Software Engineer & AI Systems Architect</strong></p>
+      <p>Specializing in Full-Stack AI Application Development, Computer Vision, Deep Learning Pipelines, and Scalable Automation Architectures.</p>
       <p>
-        <a href="https://sohail.devsil.com"><img src="https://img.shields.io/badge/Live_Portfolio-sohail.devsil.com-0052FF?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Portfolio"/></a>
-        <a href="https://github.com/sohailahmed-bsrh"><img src="https://img.shields.io/badge/GitHub-Profile-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/></a>
-        <a href="https://linkedin.com/in/sohail-ahmed-dev"><img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
-        <a href="mailto:sohail.bsrh@gmail.com"><img src="https://img.shields.io/badge/Email-Contact_Me-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/></a>
+        <a href="https://sohail.devsil.com"><strong>Portfolio Website</strong></a> | 
+        <a href="https://github.com/sohailahmed-bsrh"><strong>GitHub Profile</strong></a> | 
+        <a href="https://www.linkedin.com/in/sohail-ahmed-546314316/"><strong>LinkedIn</strong></a> | 
+        <a href="mailto:se906403@gmail.com"><strong>Email Contact</strong></a>
       </p>
-      <p><em>Available for technical roles in Artificial Intelligence, Computer Vision, and Full-Stack Engineering.</em></p>
-      <hr style="border: 0; height: 1px; background: #30363d; margin: 15px 0;">
-      <small>Repository: <code>sohailahmed-bsrh/pakistan-law-helper</code> &bull; Distributed under the MIT License.</small>
     </td>
   </tr>
 </table>
